@@ -1,5 +1,5 @@
-import sys
-q = sys.stdin.read()
+# import sys
+# q = sys.stdin.read()
 
 
 def find(element, matrix):
@@ -7,45 +7,100 @@ def find(element, matrix):
         for j in range(len(matrix[i])):
             for z in range(len(matrix[i][j])):
                 if matrix[i][j][z] == element:
-                    return (i, j, z)
+                    return [i, j, z]
+
+
+def matrix_find(element, matrix):
+    for i in range(len(matrix)):
+        for j in range(len(matrix[i])):
+            if matrix[i][j] == element:
+                return (i, j)
 
 
 # q = '''2
-# 2,3,3,4
-# 1 2 9999
-# 0 -4 1
-# 3 1 0 2
-# -1 2 5 0
-# 0 -2 2 1
-# 1 -1 16 5
-# 4 -10 -18 1
 # 4,3,3,5
 # 2 4 1
 # 3 6 2
 # 2 5 0
 # 1 2 3
 # 2 6 2 0 2
-# 9999 1 1 1 2
-# 4 2 2 0 1
+# 3 1 1 1 2
+# 9999 2 2 0 1
+# 20 18 10 4 13
+# 32 28 16 6 20
+# 19 17 9 5 14
+# 20 14 10 2 9
+# 4,3,3,5
+# 2 4 1
+# 3 6 2
+# 2 5 0
+# 1 2 3
+# 2 6 2 0 2
+# 3 1 1 1 2
+# 9999 2 2 0 1
 # 20 18 10 4 13
 # 32 28 16 6 20
 # 19 17 9 5 14
 # 20 14 10 2 9'''
 
 # q = '''2
+# 4,3,3,5
+# 2 4 1
+# 3 6 2
+# 2 5 0
+# 1 2 3
+# 2 9999 2 0 2
+# 3 1 1 1 2
+# 4 2 2 0 1
+# 20 18 10 4 13
+# 32 28 16 6 20
+# 19 17 9 5 14
+# 20 14 10 2 9
+# 2,3,3,4
+# 1 2 3
+# 0 9999 1
+# 3 1 0 2
+# -1 2 5 0
+# 0 -2 2 1
+# 1 -1 16 5
+# 4 -10 -18 1'''
+
+q = '''2
+2,3,3,4
+1 2 9999
+0 -4 1
+3 1 0 2
+-1 2 5 0
+0 -2 2 1
+1 -1 16 5
+4 -10 -18 1
+4,3,3,5
+2 4 1
+3 6 2
+2 5 0
+1 2 3
+2 6 2 0 2
+3 1 1 1 2
+9999 2 2 0 1
+20 18 10 4 13
+32 28 16 6 20
+19 17 9 5 14
+20 14 10 2 9'''
+
+# q = '''2
 # 2,3,3,2
-# 1 1 9999
+# 1 1 1
 # 1 1 1
 # 1 1
 # 1 1
-# 1 1
+# 1 9999
 # 3 3
 # 3 3
 # 2,2,2,2
 # 1 1
-# 1 0
+# 1 9999
 # -1 -1
-# -1 9999
+# -1 -1
 # -2 -2
 # -1 -1'''
 
@@ -131,30 +186,62 @@ for x, m in enumerate(matrix_c):
 # print(matrix_b)
 # print(matrix_c)
 
-false_value.append(find(9999, matrix_a))
-false_value.append(find(9999, matrix_b))
-# print(false_value)
+A = [matrix_a[0]] + [matrix_b[0]]
+B = [matrix_a[1]] + [matrix_b[1]]
+# print(A)
+# print(B)
 
-for fv in false_value:
-    a = fv[0]
-    b = fv[1]
-    c = fv[2]
+input_value = [A] + [B]
+# print('input : ', input_value)
+
+# if find(9999, matrix_a) is None:
+#     false_value.append(find(9999, matrix_b))
+#     false_value[0][0] = 1
+#     # false_value.append(find(9999, matrix_b[1]))
+#     # print(false_value)
+# else:
+#     false_value.append(find(9999, matrix_a))
+
+false_value.append(find(9999, A))
+false_value.append(find(9999, B))
+print(false_value)
+
+for n, iv in enumerate(input_value):
+    a = false_value[n][0]
+    b = false_value[n][1]
+    c = false_value[n][2]
+    # print('a=', a, 'b=', b, 'c=', c)
+    # print(n, iv)
 
     if a == 0:
         # print(matrix_a[a][b][c])  # 錯誤值
         # print(matrix_b[a][c][1])  # 與錯誤值相乘之值
         # print(matrix_c[a][a][1])  # 計算出之正確值
 
-        for x in range(len(matrix_a[a][0])):
-            if matrix_a[a][b][x] != 9999:
-                # print(matrix_c[a][b][1], matrix_a[a][b][x], (matrix_b[a][x][1]))
-                matrix_c[a][b][1] -= matrix_a[a][b][x] * int(matrix_b[a][x][1])
+        # for x in range(len(matrix_a[a][0])):
+        #     if matrix_a[a][b][x] != 9999:
+        #         # print(matrix_c[a][b][1], matrix_a[a][b][x], (matrix_b[a][x][1]))
+        #         matrix_c[a][b][1] -= matrix_a[a][b][x] * int(matrix_b[a][x][1])
+        #
+        #     if matrix_a[a][b][x] == 9999:
+        #         temp_x = x
+        #
+        # # print(matrix_c[a][a][1], matrix_b[a][temp_x][1])
+        # print(int(matrix_c[a][b][1]/matrix_b[a][temp_x][1]))
+        # # print(matrix_c[a][a][1])
 
-            if matrix_a[a][b][x] == 9999:
+        for x in range(len(iv[0][0])):
+            if iv[a][b][x] != 9999:
+                # print('->', n, x)
+                # print(matrix_c[n][b][1], iv[0][b][x], iv[1][x][1])
+                matrix_c[n][b][1] -= iv[0][b][x] * int(iv[1][x][1])
+
+            if iv[a][b][x] == 9999:
                 temp_x = x
 
         # print(matrix_c[a][a][1], matrix_b[a][temp_x][1])
-        print(int(matrix_c[a][b][1]/matrix_b[a][temp_x][1]))
+        # print(n, b, matrix_c[n][b][1])
+        print(int(matrix_c[n][b][1]/iv[1][temp_x][1]))
         # print(matrix_c[a][a][1])
 
     # print('-'*20)
@@ -164,17 +251,29 @@ for fv in false_value:
         # print(matrix_b[a][b][c])  # 錯誤值
         # print(matrix_c[a][0][0])  # 計算出之正確值
 
-        for x in range(len(matrix_a[a][0])):
-            if matrix_b[a][x][c] != 9999:
-                # print(matrix_c[a][b][1], matrix_b[a][a][x], (matrix_b[a][x][1]))
-                # print(matrix_c[a][0][c], matrix_a[a][0][x], matrix_b[a][x][c])
-                matrix_c[a][0][c] -= matrix_a[a][0][x] * int(matrix_b[a][x][c])
+        # for x in range(len(matrix_a[a][0])):
+        #     if matrix_b[a][x][c] != 9999:
+        #         # print(matrix_c[a][b][1], matrix_b[a][a][x], (matrix_b[a][x][1]))
+        #         # print(matrix_c[a][0][c], matrix_a[a][0][x], matrix_b[a][x][c])
+        #         matrix_c[a][0][c] -= matrix_a[a][0][x] * int(matrix_b[a][x][c])
+        #
+        #     if matrix_b[a][x][c] == 9999:
+        #         temp_x = x
+        #
+        # # print(matrix_c[a][0][c], matrix_a[a][0][temp_x])
+        # print(int(matrix_c[a][0][c]/matrix_a[a][0][temp_x]))
+        # # print(matrix_c[a][a][1])
 
-            if matrix_b[a][x][c] == 9999:
+        for x in range(len(iv[0][0])):
+            if iv[a][x][c] != 9999:
+                # print(matrix_c[n][0][c], iv[n][0][x], iv[1][x][c])
+                matrix_c[n][0][c] -= iv[0][0][x] * int(iv[1][x][c])
+
+            if iv[a][x][c] == 9999:
                 temp_x = x
 
         # print(matrix_c[a][0][c], matrix_a[a][0][temp_x])
-        print(int(matrix_c[a][0][c]/matrix_a[a][0][temp_x]))
+        print(int(matrix_c[n][0][c]/iv[0][0][temp_x]))
         # print(matrix_c[a][a][1])
 
 # calculate matrix
@@ -206,3 +305,4 @@ for n in range(len(matrix_index)):
 #         print(x, y)
 
 # print(len(matrix_b[1][0]))
+# print(ans_matrixes)
